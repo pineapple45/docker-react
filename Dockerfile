@@ -1,13 +1,13 @@
-FROM node:14-alpine as builder
+FROM node:16-alpine as builder
 
 WORKDIR /home/node/app
-# RUN chown -R node:node /home/node/app
+RUN chown -R node:node /home/node/app
 
-COPY package.json .
+COPY --chown=node:node package.json .
 RUN npm install
-COPY . .
+COPY --chown=node:node . .
 
-# USER node
+USER node
 
 RUN npm run build
 
